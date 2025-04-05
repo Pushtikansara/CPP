@@ -62,7 +62,7 @@ int main() {
     b1.deposit();
     b1.withdraw();
     b1.display();
-    cout<<"24ce052_pushti";
+    cout<<"\n24ce052_pushti";
     return 0;
 }
 /*

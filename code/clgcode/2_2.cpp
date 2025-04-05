@@ -71,10 +71,11 @@ int main()
 }
 */
 #include<iostream>
+using namespace std;
 int main()
 {
-    w_char alpha=L'a';
-    cout<<alpha;
+    char p = 'P';
+    cout<<p;
     return 0;
 
 }
