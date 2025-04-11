@@ -10,7 +10,7 @@ class bankaccount
   float rate;
   double emi;
   public:
-  bankaccount()//default
+  bankaccount()
   {
     id=0;
     name="unknown";
