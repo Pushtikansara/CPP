@@ -2,7 +2,8 @@
 #include<string>
 using namespace std;
 
-class student {
+class student
+ {
   private:
     int m1, m2, m3, roll_no;
     string name;
