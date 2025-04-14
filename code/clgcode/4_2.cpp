@@ -1,79 +1,91 @@
-#include<iostream>
-#include<map>
-#include<string>
+#include <iostream>
+#include <map>
+#include <vector>
+#include <string>
 using namespace std;
-class person
-{
-  protected:
-  string name;
-  int age;
-  private:
-  person(string n,int a)
-  {
-    name=n;
-    age=a;
-  }
-  void persondata()
-  {
-    cout<<"\nName:"<<name;
-    cout<<"\nAge:"<<age;
-  }
-};
-class employee: public person
-{
-    protected:
-    int employeeid;
-    public:
-    employee(string n,int a,int id):person(n,a),employeeid(id){}
-     
-    void employeedata()
-    {
-    persondata();
-    cout<<"Employee id:"<<employeeid;
-    }
-    int displaydata(employeeid)
-    {
-      return employeeid;
+
+// Base class: Person
+class Person {
+protected:
+    string name;
+    int age;
+
+public:
+    Person(string n, int a) : name(n), age(a) {}
+
+    void displayPersonData() const {
+        cout << "\nName: " << name;
+        cout << "\nAge: " << age;
     }
 };
-class manager:public employee
-{
-  protected:
-  string dep;
-  public:
-  manager(string n,int a,int id,string department):employee(n,a,id),dep(department){}
-  void managerdata()
-  {
-    employeedata();
-    displaydata();
-    cout<<"department"<<dep;
-  }
+
+// Intermediate class: Employee
+class Employee : public Person {
+protected:
+    int employeeId;
+
+public:
+    Employee(string n, int a, int id) : Person(n, a), employeeId(id) {}
+
+    void displayEmployeeData() const {
+        displayPersonData();
+        cout << "\nEmployee ID: " << employeeId;
+    }
+
+    int getId() const {
+        return employeeId;
+    }
 };
-int main()
-{
-  map<int,manager>managerMap;
-  manager m1,m2,m3;
-  m1.manager("Pushti",52,101,"HR");
-  m2.manager("mahek", 40, 102, "IT");
-  m3.manager("khushi", 44, 103, "IT");
-  managerMap[m1.displaydata()] = m1;
-  managerMap[m2.displaydata()] = m2;
-  managerMap[m3.displaydata()] = m3;
 
-    // Retrieve and display by ID
-    int searchID;
-    cout << "Enter employee ID to search: ";
-    cin >> searchID;
+// Derived class: Manager
+class Manager : public Employee {
+    string department;
 
-    if (managerMap.find(searchID) != managerMap.end()) {
+public:
+    Manager(string n, int a, int id, string dept)
+        : Employee(n, a, id), department(dept) {}
+
+    void displayManagerData() const {
+        displayEmployeeData();
+        cout << "\nDepartment: " << department << "\n";
+    }
+};
+
+// ==========================
+// Main Program
+// ==========================
+int main() {
+    // === Dynamic Method Using Map ===
+    map<int, Manager> managerMap;
+
+    Manager m1("Alice", 45, 1001, "HR");
+    Manager m2("Bob", 38, 1002, "Finance");
+    Manager m3("Charlie", 50, 1003, "IT");
+
+    managerMap[m1.getId()] = m1;
+    managerMap[m2.getId()] = m2;
+    managerMap[m3.getId()] = m3;
+
+    int searchId;
+    cout << "Enter Employee ID to search (Map Method): ";
+    cin >> searchId;
+
+    auto it = managerMap.find(searchId);
+    if (it != managerMap.end()) {
         cout << "\nManager Found:\n";
-        managerMap[searchID].managerdata();
+        it->second.displayManagerData();
     } else {
-        cout << "Manager with ID " << searchID << " not found.\n";
+        cout << "\nManager with ID " << searchId << " not found.\n";
+    }
+
+    // === Static Method Using Vector ===
+    cout << "\n--- Displaying All Managers (Static Vector Method) ---\n";
+    vector<Manager> staticManagers = {m1, m2, m3};
+
+    for (const Manager& mgr : staticManagers) {
+        mgr.displayManagerData();
+        cout << "--------------------------\n";
     }
 
     return 0;
 }
-
-
-
