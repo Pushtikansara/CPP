@@ -51,9 +51,7 @@ public:
     }
 };
 
-// ==========================
-// Main Program
-// ==========================
+
 int main() {
     // === Dynamic Method Using Map ===
     map<int, Manager> managerMap;
