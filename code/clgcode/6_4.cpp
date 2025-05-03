@@ -6,7 +6,7 @@ public:
     Base() { 
         cout << "Base constructor\n"; 
     }
-    ~Base() {   // <- Not virtual
+    ~Base() {  
         cout << "Base destructor\n"; 
     }
 };
@@ -16,17 +16,18 @@ private:
     int* data;
 public:
     Derived() { 
-        data = new int[5];   // Allocate dynamic memory
+        data = new int[5];  
         cout << "Derived constructor: allocated memory\n"; 
     }
     ~Derived() { 
-        delete[] data;       // Free dynamic memory
+        delete[] data;      
         cout << "Derived destructor: released memory\n"; 
     }
 };
 
 int main() {
     Base* ptr = new Derived();
-    delete ptr;  // Only Base destructor called, Derived destructor NOT called
+    delete ptr; 
+    cout<<"24CE052_pushti"; 
     return 0;
 }

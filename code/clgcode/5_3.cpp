@@ -9,22 +9,18 @@ private:
 public:
     Point(int x = 0, int y = 0) : x(x), y(y) {}
 
-    // Unary minus operator to negate coordinates
     Point operator-() const {
         return Point(-x, -y);
     }
 
-    // Binary plus operator to add two points
     Point operator+(const Point& other) const {
         return Point(x + other.x, y + other.y);
     }
 
-    // Equality operator
     bool operator==(const Point& other) const {
         return x == other.x && y == other.y;
     }
 
-    // Display function
     void display() const {
         cout << "(" << x << ", " << y << ")" << endl;
     }
@@ -59,7 +55,7 @@ public:
             return stack[top--];
         } else {
             cout << "Stack underflow!" << endl;
-            return Point();  // Return default Point if stack is empty
+            return Point(); 
         }
     }
 
@@ -82,13 +78,11 @@ int main() {
     Point result = p1 + p2;
     cout << "Result of p1 + p2 is: ";
     result.display();
-    history.push(result);  // Save operation
-
+    history.push(result);
     result = -p1;
     cout << "Result of -p1: ";
     result.display();
-    history.push(result);  // Save operation
-
+    history.push(result);  
     cout << "\nUndo last operation:" << endl;
     Point undone = history.pop();
     undone.display();
@@ -103,6 +97,6 @@ int main() {
     } else {
         cout << "No" << endl;
     }
-
+  cout<<"24e052_pushti kansara";
     return 0;
 }
