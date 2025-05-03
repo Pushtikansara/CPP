@@ -5,23 +5,20 @@ using namespace std;
 int main() {
     int m, n;
 
-    // Read sizes of the arrays
     cout << "Enter the size of the first sorted array: ";
     cin >> m;
     cout << "Enter the size of the second sorted array: ";
     cin >> n;
 
-    // Dynamically allocate memory for the arrays
     int* arr1 = new int[m];
     int* arr2 = new int[n];
 
-    // Read elements for the first array
     cout << "Enter " << m << " sorted elements for the first array: ";
     for (int i = 0; i < m; ++i) {
         cin >> arr1[i];
     }
 
-    // Read elements for the second array
+   
     cout << "Enter " << n << " sorted elements for the second array: ";
     for (int i = 0; i < n; ++i) {
         cin >> arr2[i];
@@ -55,6 +52,7 @@ int main() {
     delete[] arr1;
     delete[] arr2;
     delete[] merged;
+    cout<<"24CE052_Pushti";
 
     return 0;
 }

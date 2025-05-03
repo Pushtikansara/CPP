@@ -1,19 +1,18 @@
 #include <iostream>
 using namespace std;
 
-// Abstract Base Class
+
 class Student {
 protected:
-    float marks; // To store student's marks
+    float marks; 
 public:
-    virtual void computeGrade() = 0; // Pure virtual function
+    virtual void computeGrade() = 0; 
     void setMarks(float m) {
         marks = m;
     }
-    virtual ~Student() {} // Virtual destructor (good practice)
+    virtual ~Student() {} 
 };
 
-// Derived Class for Undergraduate Students
 class Undergraduate : public Student {
 public:
     void computeGrade() override {
@@ -26,7 +25,6 @@ public:
     }
 };
 
-// Derived Class for Postgraduate Students
 class Postgraduate : public Student {
 public:
     void computeGrade() override {
@@ -41,7 +39,7 @@ public:
 
 // Main Function
 int main() {
-    Student* student; // Pointer to base class
+    Student* student; 
     int choice;
     float marks;
 
@@ -60,9 +58,12 @@ int main() {
         return 0;
     }
 
-    student->setMarks(marks); // Set marks
-    student->computeGrade();  // Compute and display grade
+    student->setMarks(marks); 
+    student->computeGrade();  
 
-    delete student; // Clean up memory
+    delete student; 
+    cout<<"24ce052_pushti";
     return 0;
+   
+     
 }

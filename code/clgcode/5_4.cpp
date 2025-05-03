@@ -1,121 +1,116 @@
-/*A team of developers is tasked with building a temperature conversion system for a weather
-application. To achieve this, the team creates two classes: Celsius and Fahrenheit. These classes
-handle the conversion between temperature units, with the ability to convert from Celsius to
-Fahrenheit and vice versa using type conversion. The team utilizes operator overloading to define the
-conversion operators for both classes, enabling seamless conversions between the two units.
-The system also requires the ability to compare two temperature objects to check if they are equal.
-This is achieved by overloading the equality operator ==, which compares the values of the
-temperatures in their respective units.
-To ensure smooth processing of temperature conversions, the team needs to manage and store
-multiple converted temperature objects. Two approaches are considered for handling this task. The
-
-first approach involves using a dynamic data structure, a queue, to process the conversions in a first-
-in-first-out (FIFO) manner. Alternatively, a basic array is used to store the converted objects in a static
-
-manner.*/
-#include<iostream>
-#include<queue>
+#include <iostream>
+#include <queue>
 using namespace std;
 
-class fahrenheit;
+class Fahrenheit;
 
-class celsius{
+class Celsius {
 private:
-    float temp;
-    
+    double tempC;
+
 public:
-    celsius(float t=0):temp(t){}
-    
-    float getTemp() const {return temp; }
-    
-    operator fahrenheit();
-    
-    bool operator==(const celsius& other) const{
-    return temp == other.temp;
+    Celsius(double c = 0.0) : tempC(c) {}
+
+    double getTemp() const {
+        return tempC;
     }
-    
-    void display() const{
-    cout<<temp<<"C"<<endl;
+
+    operator Fahrenheit();
+
+    bool operator==(const Fahrenheit& f);
+};
+
+class Fahrenheit {
+private:
+    double tempF;
+
+public:
+    Fahrenheit(double f = 32.0) : tempF(f) {}
+
+    double getTemp() const {
+        return tempF;
+    }
+
+    operator Celsius() {
+        return Celsius((tempF - 32) * 5 / 9);
+    }
+
+    bool operator==(const Celsius& c) {
+        return c.getTemp() == ((tempF - 32) * 5 / 9);
     }
 };
 
-class fahrenheit {
-private:
-    float temp;
-    
-public:
-    fahrenheit(float t=0):temp(t){}
-    
-    float getTemp() const{return temp;}
-    
-    operator celsius()
-    {
-        return celsius((temp-32)*5.0/9.0);
+Celsius::operator Fahrenheit() {
+    return Fahrenheit(tempC * 9 / 5 + 32);
+}
+
+bool Celsius::operator==(const Fahrenheit& f) {
+    return tempC == ((f.getTemp() - 32) * 5 / 9);
+}
+
+void storeUsingQueue() {
+    queue<Celsius> tempQueue;
+    int n;
+    cout << "\nEnter number of temperatures(Queue) ";
+    cin >> n;
+
+    for (int i = 0; i < n; ++i) {
+        double temp;
+        cout << "Enter Celsius temperature :";
+        cin >> temp;
+        tempQueue.push(Celsius(temp));
     }
-    
-    bool operator ==(const fahrenheit& other) const{
-    return temp==other.temp;
+
+    cout << "\nQueue (FIFO):\n";
+    while (!tempQueue.empty()) {
+        Celsius c = tempQueue.front();
+        Fahrenheit f = c;
+        cout << c.getTemp() << "C = " << f.getTemp() << "F\n";
+        tempQueue.pop();
     }
-    
-    void display() const{
-    cout<<temp<<"F"<<endl;
+}
+
+void storeUsingArray() {
+    int n;
+    cout << "\nEnter number of temperatures(Array) :";
+    cin >> n;
+    if (n > 100) n = 100;
+
+    Celsius tempArray[100];
+    for (int i = 0; i < n; ++i) {
+        double temp;
+        cout << "Enter Celsius temperature : ";
+        cin >> temp;
+        tempArray[i] = Celsius(temp);
     }
-};
-celsius:noperator fahrenheit(){
-    
-    return fahrenheit((temp*9.0/5.0)+32);
+
+    cout << "\nArray (Static Storage):\n";
+    for (int i = 0; i < n; ++i) {
+        Fahrenheit f = tempArray[i];
+        cout << tempArray[i].getTemp() << "C = " << f.getTemp() << "F\n";
+    }
 }
 
-int main()
-{ // Create temperature objects
-Celsius c1(25.0);
-Fahrenheit f1 = c1;  // Implicit conversion from Celsius to Fahrenheit
+int main() {
+    double cTemp, fTemp;
 
-cout << "Celsius: ";
-c1.display();
+    cout << "Enter a Celsius temperature to convert and compare: ";
+    cin >> cTemp;
+    Celsius c(cTemp);
+    Fahrenheit f = c;
+    cout << "Converted: " << c.getTemp() << "C = " << f.getTemp() << "F\n";
 
-cout << "Converted to Fahrenheit: ";
-f1.display();
+    cout << "Enter a Fahrenheit temperature to compare: ";
+    cin >> fTemp;
+    Fahrenheit f2(fTemp);
+    if (c == f2)
+        cout << "Temperatures are equal!\n";
+    else
+        cout << "Temperatures are not equal.\n";
 
-// Convert Fahrenheit back to Celsius
-Fahrenheit f2(98.6);
-Celsius c2 = f2;
+    storeUsingQueue();
+    storeUsingArray();
+    cout<<"24CE052_pushti kansara";
 
-cout << "\nFahrenheit: ";
-f2.display();
-
-cout << "Converted to Celsius: ";
-c2.display();
-
-// Check for equality
-cout << "\nAre c1 and c2 equal? ";
-if (c1 == c2) {
-    cout << "Yes" << endl;
-} else {
-    cout << "No" << endl;
-}
-
-// ---------- Dynamic Queue-based Storage ----------
-queue<Fahrenheit> conversionQueue;
-conversionQueue.push(c1);  // Converted to Fahrenheit via operator
-conversionQueue.push(Celsius(30)); // Implicit conversion
-
-cout << "\n[Queue] Temperatures in FIFO order:" << endl;
-while (!conversionQueue.empty()) {
-    conversionQueue.front().display();
-    conversionQueue.pop();
-}
-
-// ---------- Static Array-based Storage ----------
-Fahrenheit staticStorage[3];
-staticStorage[0] = c1;         // Celsius to Fahrenheit
-staticStorage[1] = Celsius(35);
-staticStorage[2] = Fahrenheit(100);
-
-cout << "\n[Array] Static stored temperatures:" << endl;
-for (int i = 0; i < 3; ++i) {
-    staticStorage[i].display();
-}
-
-return 0;
+    return 0;
 }
