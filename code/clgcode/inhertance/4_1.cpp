@@ -2,7 +2,7 @@
 #include <vector>  
 using namespace std;
 
-class Shape {
+/*class Shape {
 protected:
     double radius;
 public:
@@ -59,5 +59,50 @@ int main() {
         cout << "Static Circle " << staticCircles[i].calculateArea() << endl;
     }
  cout<<"\n24CE052_Pushti kansara";
+    return 0;
+}
+*/
+
+
+class shape {
+protected:
+    int r;
+    float area;
+
+public:
+    void getdata() {
+        cout << "Enter radius: ";
+        cin >> r;
+    }
+
+    void display() const {
+        cout << "Radius of circle: " << r << endl;
+        cout << "Area of circle: " << area << endl;
+    }
+};
+
+class circle : public shape {
+public:
+    void Area() {
+        area = 3.14 * r * r;
+    }
+};
+
+int main() {
+    int n;
+    cout << "Enter number of circles: ";
+    cin >> n;
+
+    vector<circle> vec(n);
+
+    for (int i = 0; i < n; ++i) {
+        vec[i].getdata();
+        vec[i].Area();
+    }
+
+    for (int i = 0; i < n; ++i) {
+        vec[i].display();
+    }
+
     return 0;
 }
