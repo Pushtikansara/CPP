@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 using namespace std;
-
+/*
 class Person {
 protected:
     string name;
@@ -55,5 +55,64 @@ int main() {
 
 
     cout<<endl<<"24CE052_pushtikansara"<<endl;
+    return 0;
+}*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class person {
+protected:
+    string name;
+    int age;
+
+public:
+    person(string n, int a) : name(n), age(a) {}
+
+    void displayperson() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+    }
+};
+
+class employee : public person {
+protected:
+    int ID;
+
+public:
+    employee(string n, int a, int employeeID) : person(n, a), ID(employeeID) {}
+
+    void displayID() {
+        displayperson();
+        cout << "Employee ID: " << ID << endl;
+    }
+};
+
+class manager : public employee {
+private:
+    string department;
+
+public:
+    manager(string n, int a, int employeeID, string dept)
+        : employee(n, a, employeeID), department(dept) {}
+
+    void displaymanager() {
+        displayID();
+        cout << "Department: " << department << endl;
+    }
+};
+
+int main() {
+    manager m1("Pushti", 17, 101, "Engineering");
+    manager m2("Reeva", 18, 102, "Marketing");
+    manager m3("Khushi", 17, 103, "Finance");
+
+    m1.displaymanager();
+    cout << "-------------------" << endl;
+    m2.displaymanager();
+    cout << "-------------------" << endl;
+    m3.displaymanager();
+
     return 0;
 }

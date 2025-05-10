@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector> 
 using namespace std;
-
+/*
 class FuelType {
 protected:
     string fuel;
@@ -62,5 +62,66 @@ int main() {
         serviceQueue[i].showCarDetails();
     }
     cout<<"\n24CE052_Pushti kansara";
+    return 0;
+}
+*/#include <iostream>
+#include <vector>
+using namespace std;
+
+class fueltype {
+protected:
+    string fuel;
+public:
+    fueltype(string f) : fuel(f) {}
+
+    void fueldetails() {
+        cout << "Fuel type: " << fuel << endl;
+    }
+};
+
+class brand : public fueltype {
+protected:
+    string brandname;
+public:
+    brand(string f, string b) : fueltype(f), brandname(b) {}
+
+    void displaybrand() {
+        fueldetails();
+        cout << "Brand name: " << brandname << endl;
+    }
+};
+
+class cardetails : public brand {
+public:
+    cardetails(string f, string b) : brand(f, b) {}
+
+    void displaycar() {
+
+        displaybrand();
+    }
+};
+
+int main() {
+    int n;
+    cout << "Number of cars you want to add: ";
+    cin >> n;
+
+    vector<cardetails> queue;
+    for (int i = 0; i < n; i++) {
+        string fuel, brandname;
+        cout << "\nEnter fuel type: ";
+        cin >> fuel;
+        cout << "Enter brand name: ";
+        cin >> brandname;
+        cardetails c(fuel, brandname);
+        queue.push_back(c);
+    }
+
+    cout << "\n===== Car Details =====\n";
+    for (int i = 0; i < queue.size(); i++) {
+        queue[i].displaycar();
+        cout << "------------------------\n";
+    }
+
     return 0;
 }
